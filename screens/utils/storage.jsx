@@ -2,43 +2,47 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const STORAGE_KEY = '@user_data';
 
+
 export const saveUser = async (userData) => {
   try {
-    const existingData = await AsyncStorage.getItem(STORAGE_KEY);
-    const users = existingData ? JSON.parse(existingData) : [];
+    const existing = await AsyncStorage.getItem(STORAGE_KEY);
+    const users = existing ? JSON.parse(existing) : [];
 
-    const phoneExists = users.some(user => user.phone === userData.phone);
-    if (phoneExists) return false;
+    const alreadyExists = users.some(user => user.phone === userData.phone);
+    if (alreadyExists) return false;
 
+  
     users.push(userData);
     await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(users));
     return true;
-  } catch (error) {
-    console.error('Error saving user:', error);
+  } catch (err) {
+    console.error('Error saving user:', err);
     return false;
   }
 };
 
+
 export const loginUser = async (phone, password) => {
   try {
-    const existingData = await AsyncStorage.getItem(STORAGE_KEY);
-    if (!existingData) return null;
+    const existing = await AsyncStorage.getItem(STORAGE_KEY);
+    if (!existing) return null;
 
-    const users = JSON.parse(existingData);
+    const users = JSON.parse(existing);
     const user = users.find(u => u.phone === phone && u.password === password);
     return user || null;
-  } catch (error) {
-    console.error('Error logging in:', error);
+  } catch (err) {
+    console.error('Error logging in:', err);
     return null;
   }
 };
 
+
 export const getAllUsers = async () => {
   try {
-    const existingData = await AsyncStorage.getItem(STORAGE_KEY);
-    return existingData ? JSON.parse(existingData) : [];
-  } catch (error) {
-    console.error('Error getting users:', error);
+    const existing = await AsyncStorage.getItem(STORAGE_KEY);
+    return existing ? JSON.parse(existing) : [];
+  } catch (err) {
+    console.error('Error fetching users:', err);
     return [];
   }
 };

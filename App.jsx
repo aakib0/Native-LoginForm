@@ -1,4 +1,3 @@
-import React from 'react';
 import { StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -9,10 +8,10 @@ import Home from './screens/Home';
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
+const App = () => {
   return (
     <>
-      <StatusBar barStyle="dark-content" backgroundColor="#f3f4f6" />
+      <StatusBar backgroundColor="#f3f4f6" barStyle="dark-content" />
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="Login"
@@ -28,4 +27,6 @@ export default function App() {
       </NavigationContainer>
     </>
   );
-}
+};
+
+export default App;

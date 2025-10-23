@@ -1,5 +1,5 @@
-import { View, Text, Pressable, Alert } from 'react-native';
 import React from 'react';
+import { View, Text, Pressable, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = ({ route, navigation }) => {
@@ -11,7 +11,9 @@ const Home = ({ route, navigation }) => {
       {
         text: 'Logout',
         style: 'destructive',
-        onPress: () => navigation.replace('Login'),
+        onPress: () => {
+          navigation.replace('Login');
+        },
       },
     ]);
   };
@@ -19,7 +21,7 @@ const Home = ({ route, navigation }) => {
   const clearAllData = async () => {
     Alert.alert(
       'Clear All Data',
-      'This will delete all registered users. Continue?',
+      'This will remove all registered users. Continue?',
       [
         { text: 'Cancel', style: 'cancel' },
         {
@@ -28,11 +30,11 @@ const Home = ({ route, navigation }) => {
           onPress: async () => {
             try {
               await AsyncStorage.clear();
-              Alert.alert('Success', 'All data cleared!');
+              Alert.alert('Success', 'All data has been cleared.');
               navigation.replace('Login');
-            } catch (error) {
-              Alert.alert('Error', 'Failed to clear data');
-              console.error(error);
+            } catch (err) {
+              console.error('Error clearing data:', err);
+              Alert.alert('Error', 'Something went wrong while clearing data.');
             }
           },
         },
@@ -57,8 +59,7 @@ const Home = ({ route, navigation }) => {
 
       <View className="bg-white rounded-lg p-6 mb-6 w-full">
         <Text className="text-base text-gray-700 text-center">
-          You have successfully logged in to the app. 
-          This is your home screen.
+          You’re now logged in! This is your home screen.
         </Text>
       </View>
 
@@ -84,7 +85,7 @@ const Home = ({ route, navigation }) => {
 
       <View className="mt-6">
         <Text className="text-sm text-gray-500 text-center">
-          Testing Note: Use "Clear All Data" to reset all users
+          *Testing note:* Use "Clear All Data" to reset all users.
         </Text>
       </View>
     </View>
