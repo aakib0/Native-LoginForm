@@ -112,7 +112,7 @@ const Login = ({ navigation }) => {
             </Pressable>
           </View>
 
-          {/* Register link */}
+          
           <View className="flex-row justify-center">
             <Text className="text-gray-600">Don’t have an account? </Text>
             <Pressable onPress={() => navigation.navigate('Register')}>

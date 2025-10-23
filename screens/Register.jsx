@@ -20,7 +20,7 @@ const Register = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
 
   const handleRegister = async () => {
-    // simple form check
+ 
     if (!name || !email || !phone || !password || !confirmPassword) {
       Alert.alert('Error', 'Please fill all fields.');
       return;
